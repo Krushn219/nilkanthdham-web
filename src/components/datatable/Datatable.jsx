@@ -56,6 +56,7 @@ const Datatable = () => {
           image: user.image,
           // Map more fields you want to display here
         }));
+        console.log("users++++",rows)
         // Filter rows based on search query
         const filteredRows = rows.filter((user) =>
           user.firstName.toLowerCase().includes(searchQuery.toLowerCase())

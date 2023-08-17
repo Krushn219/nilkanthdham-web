@@ -21,7 +21,13 @@ const Sidebar = () => {
     <div className="sidebar">
       <div className="top">
         <Link to="/" style={{ textDecoration: "none" }}>
-          <span className="logo">Nilkanthdham</span>
+          <span className="logo">
+            <img
+              src="/logo.png" // Update with the correct relative URL to your logo image
+              alt="Logo"
+              className="logo-image"
+            />
+          </span>
         </Link>
       </div>
       <hr />

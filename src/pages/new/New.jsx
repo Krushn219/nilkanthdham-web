@@ -50,14 +50,14 @@ const New = ({ title }) => {
     }
 
     try {
-      // await fetch(process.env.REACT_APP_API_URL_LOCAL + `/api/employee/create`,{
-      //   method: "POST",
-      //   body: formDataToSend,
-      // })
-      await fetch(process.env.REACT_APP_API_URL + `/api/employee/create`, {
+      await fetch(process.env.REACT_APP_API_URL_LOCAL + `/api/employee/create`,{
         method: "POST",
         body: formDataToSend,
-      });
+      })
+      // await fetch(process.env.REACT_APP_API_URL + `/api/employee/create`, {
+      //   method: "POST",
+      //   body: formDataToSend,
+      // });
 
       // Reset form fields or perform other actions after successful submission
       setFile("");
