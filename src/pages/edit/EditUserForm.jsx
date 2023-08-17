@@ -72,14 +72,14 @@ const EditUserForm = ({ title }) => {
 
 
     try {
-      await fetch(process.env.REACT_APP_API_URL_LOCAL + `/api/employee/edit/${userId}`,{
-        method: "PUT",
-        body: formDataToSend,
-      })
-      // await fetch(process.env.REACT_APP_API_URL + `/api/employee/edit/${userId}`,{
+      // await fetch(process.env.REACT_APP_API_URL_LOCAL + `/api/employee/edit/${userId}`,{
       //   method: "PUT",
       //   body: formDataToSend,
       // })
+      await fetch(process.env.REACT_APP_API_URL + `/api/employee/edit/${userId}`,{
+        method: "PUT",
+        body: formDataToSend,
+      })
 
       // Reset form fields or perform other actions after successful submission
       setFile("");
