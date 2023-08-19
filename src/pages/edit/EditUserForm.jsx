@@ -5,6 +5,7 @@ import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUpload
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { editUserInputs } from "../../formSource"; // Import your inputs data
+import Swal from "sweetalert2";
 
 const EditUserForm = ({ title }) => {
   const navigate = useNavigate();
@@ -27,11 +28,9 @@ const EditUserForm = ({ title }) => {
     permanentAddress: "",
   });
 
-  useEffect(async() => {
+  useEffect(async () => {
     // Fetch user details from the server
-    // fetch(`http://localhost:4001/api/employee/${userId}`)
-     // await fetch(process.env.REACT_APP_API_URL_LOCAL + `/api/employee/${userId}`)
-      await fetch(process.env.REACT_APP_API_URL + `/api/employee/${userId}`)
+    await fetch(process.env.REACT_APP_API_URL + `/api/employee/${userId}`)
       .then((response) => response.json())
       .then((data) => {
         const userDetail = data.employee;
@@ -63,29 +62,41 @@ const EditUserForm = ({ title }) => {
     const updatedData = {}; // Create a new object to hold updated data
 
     for (const key in formData) {
-       if (formData[key] !== "" && (!file || key !== "image")) {
-      // Append only updated fields, excluding the image if no new image is selected
-      updatedData[key] = formData[key];
-      formDataToSend.append(key, formData[key]);
+      if (formData[key] !== "" && (!file || key !== "image")) {
+        // Append only updated fields, excluding the image if no new image is selected
+        updatedData[key] = formData[key];
+        formDataToSend.append(key, formData[key]);
+      }
     }
-    }
-
 
     try {
-      // await fetch(process.env.REACT_APP_API_URL_LOCAL + `/api/employee/edit/${userId}`,{
-      //   method: "PUT",
-      //   body: formDataToSend,
-      // })
-      await fetch(process.env.REACT_APP_API_URL + `/api/employee/edit/${userId}`,{
-        method: "PUT",
-        body: formDataToSend,
-      })
+      await fetch(
+        process.env.REACT_APP_API_URL + `/api/employee/edit/${userId}`,
+        {
+          method: "PUT",
+          body: formDataToSend,
+        }
+      );
+
+      // Show a success message using SweetAlert
+      Swal.fire({
+        icon: "success",
+        title: "Success",
+        text: "User data has been updated successfully!",
+      });
 
       // Reset form fields or perform other actions after successful submission
       setFile("");
       navigate(`/users/${userId}`);
     } catch (error) {
       console.error("Error updating user:", error);
+
+      // Show an error message using SweetAlert
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "An error occurred while updating user data.",
+      });
     }
   };
 

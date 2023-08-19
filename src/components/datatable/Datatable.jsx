@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
-
+import Swal from "sweetalert2";
 
 const Datatable = () => {
   const [userRows, setUserRows] = useState([]);
@@ -41,7 +41,6 @@ const Datatable = () => {
   ];
 
   useEffect(async () => {
-    // await fetch(process.env.REACT_APP_API_URL_LOCAL + `/api/employee/all`)
     await fetch(process.env.REACT_APP_API_URL + `/api/employee/all`)
       .then((response) => response.json())
       .then((data) => {
@@ -56,7 +55,6 @@ const Datatable = () => {
           image: user.image,
           // Map more fields you want to display here
         }));
-        console.log("users++++",rows)
         // Filter rows based on search query
         const filteredRows = rows.filter((user) =>
           user.firstName.toLowerCase().includes(searchQuery.toLowerCase())
@@ -79,8 +77,17 @@ const Datatable = () => {
 
   const handleDelete = async (userId) => {
     try {
+      const result = await Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      });
+
       // Send a DELETE request to delete the user on the server
-      // await fetch(process.env.REACT_APP_API_URL_LOCAL + `/api/employee/all`)
       await fetch(process.env.REACT_APP_API_URL + `/api/employee/${userId}`, {
         method: "DELETE",
       });
@@ -89,8 +96,11 @@ const Datatable = () => {
       setUserRows((prevUserRows) =>
         prevUserRows.filter((user) => user.id !== userId)
       );
+
+      Swal.fire("Deleted!", "The user has been deleted.", "success");
     } catch (error) {
       console.error("Error deleting user:", error);
+      Swal.fire("Error", "An error occurred while deleting the user.", "error");
     }
   };
 

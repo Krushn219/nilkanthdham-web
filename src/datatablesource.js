@@ -38,6 +38,46 @@ export const userColumns = [
   },
 ];
 
+export const presenceColumns = [
+  { field: "_id", headerName: "ID", width: 70 },
+  {
+    field: "employeeName",
+    headerName: "Employee Name",
+    width: 230,
+    renderCell: (params) => {
+      return (
+        <div className="cellWithImg">
+          <img className="cellImg" src={params.row.img} alt="avatar" />
+          {params.row.employeeName}
+        </div>
+      );
+    },
+  },
+  {
+    field: "present",
+    headerName: "Present Status",
+    width: 160,
+    renderCell: (params) => (
+      <div className={`cellWithStatus ${params.row.present ? "active" : "inactive"}`}>
+        {params.row.present ? "Present" : "Absent"}
+      </div>
+    ),
+  },
+  { field: "date", headerName: "Date", width: 150 },
+  { field: "workHours", headerName: "Work Hours", width: 130 },
+];
+export const presenceRows = [
+  {
+    id: 1,
+    employeeName: "Snow",
+    img: "https://images.pexels.com/photos/1820770/pexels-photo-1820770.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+    present: true,
+    date: "2023-08-17",
+    workHours: "8 hours",
+  },
+  // Add more presence data rows here
+];
+
 //temporary data
 export const userRows = [
   {

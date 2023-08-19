@@ -10,6 +10,7 @@ import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
 import AddUserForm from "./AddUserForm";
 import EditUserForm from "./pages/edit/EditUserForm";
+import EmployeePresence from "./pages/presence/Presence";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -30,15 +31,21 @@ function App() {
                 element={<New inputs={userInputs} title="Add New User" />}
                 // element={<AddUserForm />} // Render the AddUserForm component when "Add New User" is clicked
               />
+               <Route path="presence" element={<EmployeePresence/>} />
             </Route>
-            <Route path="products">
+            <Route path="presence">
+            <Route index element={<List />} />
+
+
+            </Route>
+            {/* <Route path="products">
               <Route index element={<List />} />
               <Route path=":productId" element={<Single />} />
               <Route
                 path="new"
                 element={<New inputs={productInputs} title="Add New Product" />}
               />
-            </Route>
+            </Route> */}
           </Route>
         </Routes>
       </BrowserRouter>

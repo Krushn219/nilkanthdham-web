@@ -5,6 +5,7 @@ import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUpload
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { userInputs } from "../../formSource"; // Import your inputs data
+import Swal from "sweetalert2";
 
 const New = ({ title }) => {
   const navigate = useNavigate();
@@ -41,23 +42,27 @@ const New = ({ title }) => {
 
     if (file) {
       formDataToSend.append("image", file);
-    } 
+    }
 
     for (const key in formData) {
-      if (key !== "image") { // Exclude the 'image' field from formDataToSend
+      if (key !== "image") {
+        // Exclude the 'image' field from formDataToSend
         formDataToSend.append(key, formData[key]);
       }
     }
 
     try {
-      await fetch(process.env.REACT_APP_API_URL_LOCAL + `/api/employee/create`,{
+      await fetch(process.env.REACT_APP_API_URL + `/api/employee/create`, {
         method: "POST",
         body: formDataToSend,
-      })
-      // await fetch(process.env.REACT_APP_API_URL + `/api/employee/create`, {
-      //   method: "POST",
-      //   body: formDataToSend,
-      // });
+      });
+
+      // Show a success message using SweetAlert
+      Swal.fire({
+        icon: "success",
+        title: "Success",
+        text: "User has been created successfully!",
+      });
 
       // Reset form fields or perform other actions after successful submission
       setFile("");
@@ -68,6 +73,13 @@ const New = ({ title }) => {
       navigate("/users");
     } catch (error) {
       console.error("Error creating user:", error);
+
+      // Show an error message using SweetAlert
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "An error occurred while creating the user.",
+      });
     }
   };
 
@@ -111,7 +123,9 @@ const New = ({ title }) => {
                     type={input.type}
                     placeholder={input.placeholder}
                     value={formData[input.key]}
-                    onChange={(e) => handleInputChange(input.key, e.target.value)}
+                    onChange={(e) =>
+                      handleInputChange(input.key, e.target.value)
+                    }
                   />
                 </div>
               ))}

@@ -193,6 +193,42 @@ export const editUserInputs = [
   }
 ];
 
+export const presenceInputs = [
+  {
+    id: 1,
+    key: "employeeName",
+    label: "Employee Name",
+    type: "text",
+    placeholder: "John Doe",
+  },
+  {
+    id: 2,
+    key: "employeeCode",
+    label: "Employee Code",
+    type: "number",
+  },
+  {
+    id: 3,
+    key: "present",
+    label: "Present Status",
+    type: "checkbox",
+  },
+  {
+    id: 4,
+    key: "date",
+    label: "Date",
+    type: "date",
+  },
+  {
+    id: 5,
+    key: "workHours",
+    label: "Work Hours",
+    type: "text",
+    placeholder: "8 hours",
+  },
+];
+
+
 export const productInputs = [
   {
     id: 1,
