@@ -1,144 +1,149 @@
 .datatable {
-    height: 600px;
-    padding: 20px;
-  
-    .datatableTitle {
-      width: 100%;
-      font-size: 24px;
-      color: gray;
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-  
-      .link {
-        text-decoration: none;
-        color: green;
-        font-size: 16px;
-        font-weight: 400;
-        border: 1px solid green;
-        padding: 5px;
-        border-radius: 5px;
-        cursor: pointer;
-      }
-    }
-  
-    .cellWithImg {
-      display: flex;
-      align-items: center;
-  
-      .cellImg {
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
-        object-fit: cover;
-        margin-right: 5px;
-      }
-    }
-  
-    .cellWithStatus {
+  height: 600px;
+  padding: 20px;
+
+  .datatableTitle {
+    width: 100%;
+    font-size: 24px;
+    color: gray;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .link {
+      text-decoration: none;
+      color: green;
+      font-size: 16px;
+      font-weight: 400;
+      border: 1px solid green;
       padding: 5px;
       border-radius: 5px;
-    
-      .checkboxLabel {
-        display: flex;
-        align-items: center;
-        gap: 5px;
-        cursor: pointer;
-    
-        &.active {
-          color: green;
-        }
-    
-        &.inactive {
-          color: crimson;
-        }
-    
-        input[type="checkbox"] {
-          appearance: none;
-          width: 18px;
-          height: 18px;
-          border: 1px solid lightgray;
-          border-radius: 3px;
-          outline: none;
-          cursor: pointer;
-    
-          &:checked {
-            background-color: green;
-            border-color: green;
-          }
-        }
-      }
+      cursor: pointer;
     }
+  }
 
-    .workHoursCell {
+  .cellWithImg {
+    display: flex;
+    align-items: center;
+
+    .cellImg {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 5px;
+    }
+  }
+
+  .cellWithStatus {
+    padding: 5px;
+    border-radius: 5px;
+
+    .checkboxLabel {
       display: flex;
       align-items: center;
-  
-      input[type="number"] {
-        width: 60px; /* Adjust the width as needed */
-        padding: 4px;
-        border: 1px solid #ccc;
+      gap: 5px;
+      cursor: pointer;
+
+      &.active {
+        color: green;
+      }
+
+      &.inactive {
+        color: crimson;
+      }
+
+      input[type="checkbox"] {
+        appearance: none;
+        width: 18px;
+        height: 18px;
+        border: 1px solid lightgray;
         border-radius: 3px;
-        font-size: 14px;
         outline: none;
-  
-        &:hover,
-        &:focus {
-          border-color: #007bff;
-        }
-      }
-    }
-    
-    .datePickerContainer {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-
-      .datePicker {
-        display: flex;
-        align-items: center;
-  
-        .MuiFormControl-root {
-          margin: 0;
-        }
-  
-        .MuiInputBase-input {
-          font-size: 14px;
-        }
-  
-        .MuiSvgIcon-root {
-          color: gray;
-        }
-      }
-  
-      
-    }
-    .toolbar{
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      .saveButton {
-        background-color: #007bff;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        padding: 8px 15px;
-        margin-top: 10px;
-        margin-right: 10px;
         cursor: pointer;
-        font-weight: 500;
-        transition: background-color 0.3s ease;
-  
-        &:hover {
-          background-color: #0056b3;
-        }
-  
-        &:disabled {
-          background-color: lightgray;
-          cursor: not-allowed;
+
+        &:checked {
+          background-color: green;
+          border-color: green;
         }
       }
     }
   }
-  
+
+  .workHoursCell {
+    display: flex;
+    align-items: center;
+
+    input[type="number"] {
+      width: 60px; /* Adjust the width as needed */
+      padding: 4px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      font-size: 14px;
+      outline: none;
+
+      &:hover,
+      &:focus {
+        border-color: #007bff;
+      }
+    }
+  }
+
+  .datePickerContainer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    .datePicker {
+      display: flex;
+      align-items: center;
+
+      .MuiFormControl-root {
+        margin: 0;
+      }
+
+      .MuiInputBase-input {
+        font-size: 14px;
+      }
+
+      .MuiSvgIcon-root {
+        color: gray;
+      }
+    }
+  }
+  .toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    .saveButton {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 8px 15px;
+      margin-top: 10px;
+      margin-right: 10px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: #0056b3;
+      }
+
+      &:disabled {
+        background-color: lightgray;
+        cursor: not-allowed;
+      }
+    }
+  }
+  .errorMessage {
+    background-color: #ffcccc;
+    color: #cc0000;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+}

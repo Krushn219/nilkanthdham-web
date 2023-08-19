@@ -84,35 +84,72 @@ const Presencetable = () => {
     const today = new Date();
     const selectedDateValue = new Date(selectedDate);
 
-    if (selectedDateValue <= today) {
-      // Fetch data and render when the selected date is today or in the past
-      await fetch(process.env.REACT_APP_API_URL + `/api/employee/all`)
-        .then((response) => response.json())
-        .then((data) => {
-          const employeeData = data.employee;
+    if (selectedDateValue > today) {
+      // Selected date is in the future
+      setPresenceData([]);
+      setLoading(false);
+      setIsFutureDate(true);
+      return;
+    }
+
+    let apiEndpoint = `/api/employee/pastDateData/${
+      selectedDateValue.toISOString().split("T")[0]
+    }`;
+
+    try {
+      const response = await fetch(process.env.REACT_APP_API_URL + apiEndpoint);
+
+      if (response.ok) {
+        const data = await response.json();
+        const employeeData = data.employee;
+
+        if (employeeData.length === 0) {
+          // If no data available, fetch all employees
+          const allResponse = await fetch(
+            process.env.REACT_APP_API_URL + `/api/employee/all`
+          );
+
+          if (allResponse.ok) {
+            const allData = await allResponse.json();
+            const allEmployeeData = allData.employee;
+            const transformedData = allEmployeeData.map((employee) => ({
+              id: employee._id,
+              employeeName: `${employee.userName}`,
+              employeeCode: employee.employeeCode,
+              present: false,
+              workHours: "",
+              date: selectedDateValue.toISOString().split("T")[0],
+              image: employee.image,
+            }));
+            setPresenceData(transformedData);
+            setLoading(false);
+            setIsFutureDate(false);
+          } else {
+            setError("Error fetching all employee data");
+            setLoading(false);
+          }
+        } else {
           const transformedData = employeeData.map((employee) => ({
             id: employee._id,
-            employeeName: `${employee.userName} ${employee.lastName}`,
+            employeeName: `${employee.userName}`,
             employeeCode: employee.employeeCode,
-            present: false,
-            workHours: "",
+            present: employee.present,
+            workHours: employee.workHours,
             date: selectedDateValue.toISOString().split("T")[0],
             image: employee.image,
           }));
-
           setPresenceData(transformedData);
           setLoading(false);
           setIsFutureDate(false);
-        })
-        .catch((error) => {
-          console.error("Error fetching employee data:", error);
-          setError("Error fetching employee data");
-          setLoading(false);
-        });
-    } else {
-      setPresenceData([]); // Clear the presenceData
+        }
+      } else {
+        setError("Error fetching employee data");
+        setLoading(false);
+      }
+    } catch (error) {
+      console.error("Error fetching employee data:", error);
+      setError("Error fetching employee data");
       setLoading(false);
-      setIsFutureDate(true);
     }
   };
 
@@ -215,7 +252,7 @@ const Presencetable = () => {
           />
         </div>
         {isFutureDate ? (
-          <div className="message">
+          <div className="errorMessage">
             Selected date is in the future. Please select a date in the past or
             today.
           </div>

@@ -569,4 +569,105 @@
 
 // export default Presencetable;
 
+ //   const fetchEmployeeData = async () => {
+  //     setLoading(true);
+  //     setError(null);
+
+  //     const today = new Date();
+  //     const selectedDateValue = new Date(selectedDate);
+
+  //     try {
+  //       const response = await fetch(
+  //         process.env.REACT_APP_API_URL +
+  //           `/api/employee/all?date=${
+  //             selectedDateValue.toISOString().split("T")[0]
+  //           }`
+  //       );
+  //       const data = await response.json();
+  //       const employeeData = data.employee;
+
+  //       const transformedData = employeeData.map((employee) => ({
+  //         id: employee._id,
+  //         employeeName: `${employee.userName} ${employee.lastName}`,
+  //         employeeCode: employee.employeeCode,
+  //         present: false,
+  //         workHours: "",
+  //         date: selectedDateValue.toISOString().split("T")[0],
+  //         image: employee.image,
+  //       }));
+
+  //       setPresenceData(transformedData);
+  //       setLoading(false);
+  //       setIsFutureDate(false);
+  //     } catch (error) {
+  //       console.error("Error fetching employee data:", error);
+  //       setError("Error fetching employee data");
+  //       setLoading(false);
+  //     }
+  //   };
+  // const fetchEmployeeData = async () => {
+  //   setLoading(true);
+  //   setError(null);
+
+  //   const today = new Date();
+  //   const selectedDateValue = new Date(selectedDate);
+
+  //   if (selectedDateValue <= today) {
+  //     // Fetch data and render when the selected date is today or in the past
+  //     await fetch(
+  //       process.env.REACT_APP_API_URL +
+  //         `/api/employee/pastDateData/${
+  //           selectedDateValue.toISOString().split("T")[0]
+  //         }`
+  //     )
+  //       .then((response) => response.json())
+  //       .then(async (data) => {
+  //         if (data.employee.length == 0) {
+  //           // Fetch data and render when the selected date is in the past
+  //           await fetch(process.env.REACT_APP_API_URL + `/api/employee/all`)
+  //             .then((response) => response.json())
+  //             .then((data) => {
+  //               const employeeData = data.employee;
+  //               const transformedData = employeeData.map((employee) => ({
+  //                 id: employee._id,
+  //                 employeeName: `${employee.userName}`,
+  //                 employeeCode: employee.employeeCode,
+  //                 present: employee.present,
+  //                 workHours: employee.workHours,
+  //                 date: selectedDateValue.toISOString().split("T")[0],
+  //                 image: employee.image,
+  //               }));
+  //               setPresenceData(transformedData);
+  //               setLoading(false);
+  //               setIsFutureDate(false);
+  //             });
+  //         } else {
+  //           const employeeData = data.employee;
+  //           const transformedData = employeeData.map((employee) => ({
+  //             id: employee._id,
+  //             employeeName: `${employee.userName}`,
+  //             employeeCode: employee.employeeCode,
+  //             present: employee.present,
+  //             workHours: employee.workHours,
+  //             date: selectedDateValue.toISOString().split("T")[0],
+  //             image: employee.image,
+  //           }));
+
+  //           setPresenceData(transformedData);
+  //           setLoading(false);
+  //           setIsFutureDate(false);
+  //         }
+  //       })
+  //       .catch((error) => {
+  //         console.error("Error fetching employee data:", error);
+  //         setError("Error fetching employee data");
+  //         setLoading(false);
+  //       });
+  //   } else {
+  //     setPresenceData([]); // Clear the presenceData
+  //     setLoading(false);
+  //     setIsFutureDate(true);
+  //   }
+  // };
+
 
