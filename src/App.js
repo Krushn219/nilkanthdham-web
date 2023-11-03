@@ -1,10 +1,4 @@
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Navigate,
-  useNavigate,
-} from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./pages/login/Login";
 import "./style/dark.scss";
 import { useContext, useEffect, useState } from "react";
@@ -27,23 +21,40 @@ function App() {
   };
 
   useEffect(() => {
-    // Check if there's a token in local storage when the component mounts
-    const token = localStorage.getItem("authToken");
-    if (token) {
-      // Set the user as logged in if a valid token is found
-      setIsLoggedIn(true);
+    try {
+      // Check if there's a token in local storage when the component mounts
+      const token = localStorage.getItem("authToken");
+      if (token) {
+        if (token === "undefined" || token === null) {
+          // Handle the case when there's no token in local storage
+        setIsLoggedIn(false);
+        setIsAdmin(false);
+        }
+        else{
+        // Set the user as logged in if a valid token is found
+        setIsLoggedIn(true);
 
-      // Decode a JWT
-      const decoded = jwtDecode(token);
+        // Decode a JWT
+        const decoded = jwtDecode(token);
 
-      // Check if the user is an admin
-      setIsAdmin(decoded.isAdmin);
-    } else if (token == "undefined") {
+        // Check if the user is an admin
+        setIsAdmin(decoded.isAdmin);
+        }
+      } else {
+        // Handle the case when there's no token in local storage
+        setIsLoggedIn(false);
+        setIsAdmin(false);
+      }
+
       // Update the loading state
       setIsLoading(false);
+    } catch (error) {
+      // Handle any errors that might occur during token decoding or storage access
+      console.error("Error in useEffect:", error);
+      setIsLoggedIn(false);
+      setIsAdmin(false);
+      setIsLoading(false);
     }
-    // Update the loading state
-    setIsLoading(false);
   }, []);
 
   // While loading, don't render any content
@@ -58,12 +69,12 @@ function App() {
           <Route path="/">
             <Route
               path="/"
-              element={<Login onLogin={handleLogin} isLoggedIn={isLoggedIn} />}
+              element={<Login onLogin={handleLogin} isLoggedIn={isLoggedIn} isAdmin={isAdmin}/>}
             />
             {isLoggedIn ? (
               <Route path="login" element={<Navigate to="/" />} />
             ) : (
-              <Route path="login" element={<Login onLogin={handleLogin} />} />
+              <Route path="login" element={<Login onLogin={handleLogin} isAdmin={isAdmin}/>} />
             )}
             {isAdmin ? (
               <Route path="/*" element={<AdminRoutes isAdmin={isAdmin} />} />

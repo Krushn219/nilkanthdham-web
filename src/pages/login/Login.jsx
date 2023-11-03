@@ -5,27 +5,15 @@ import { Navigate, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { jwtDecode } from "jwt-decode";
 
-const Login = ({ onLogin, isLoggedIn, isAuthenticated }) => {
+const Login = ({ onLogin, isAdmin }) => {
+  console.log("in login page")
   const navigate = useNavigate();
 
   // Create state variables for the username and password
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
-  const [isAdmin, setIsAdmin] = useState(false);
 
-  useEffect(() => {
-    // Check if there's a token in local storage when the component mounts
-    const token = localStorage.getItem("authToken");
-    if (token) {
-      // Decode a JWT
-      const decoded = jwtDecode(token);
-      // console.log(decoded, isAdmin);
-
-      // Check if the user is an admin
-      setIsAdmin(decoded.isAdmin);
-    }
-  }, []);
 
   // Function to handle form submission
   const handleSubmit = async (e) => {
@@ -50,18 +38,18 @@ const Login = ({ onLogin, isLoggedIn, isAuthenticated }) => {
         }
       );
       const resData = await response.json();
-      console.log("responseresponse", resData);
+      // console.log("responseresponse", resData);
       if (response.ok) {
-        // Login was successful, call the onLogin function to update the parent component's state
+        // Login was successful
         onLogin();
 
         // Set the JWT token in localStorage
         localStorage.setItem("authToken", resData.token);
 
         if (isAdmin) {
-          // console.log("isAdmin*****",isAdmin)
           navigate("/admin");
         } else {
+
           navigate("/users/presence");
         }
       } else {
@@ -80,9 +68,9 @@ const Login = ({ onLogin, isLoggedIn, isAuthenticated }) => {
     }
   };
 
-  if (isAuthenticated) {
-    return <Navigate to="/" />;
-  }
+  // if (isAuthenticated) {
+  //   return <Navigate to="/" />;
+  // }
 
   return (
     <div className="login-container">
