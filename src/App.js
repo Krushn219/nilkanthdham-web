@@ -23,7 +23,6 @@ function App() {
   useEffect(() => {
     // Check if there's a token in local storage when the component mounts
     const token = localStorage.getItem("authToken");
-    const navigate = useNavigate();
     if (token) {
       // Set the user as logged in if a valid token is found
       setIsLoggedIn(true);
@@ -33,9 +32,6 @@ function App() {
 
       // Check if the user is an admin
       setIsAdmin(decoded.isAdmin);
-    }
-    else{
-      navigate('/')
     }
     // Update the loading state
     setIsLoading(false);
