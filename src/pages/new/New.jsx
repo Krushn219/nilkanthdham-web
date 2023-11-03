@@ -12,20 +12,19 @@ const New = ({ title }) => {
   const [file, setFile] = useState("");
   const [formData, setFormData] = useState({
     image: "",
-    employeeCode: "",
-    username: "",
-    lastname: "",
-    email: "",
-    password: "",
+    dateOfJoining:"",
+    userName: "",
+    lastName: "",
+    permanentAddress:"",
+    contactNo:"",
     gender: "",
     dateOfBirth: "",
-    dateOfJoining: "",
-    status: "",
     adharNumber: "",
-    contactNo: "",
+    panCardNo:"",
+    bankname:"",
+    accountno:"",
+    ifsc:"",
     emergencyContactNo: "",
-    bloodGroup: "",
-    permanentAddress: "",
   });
 
   const handleInputChange = (key, value) => {

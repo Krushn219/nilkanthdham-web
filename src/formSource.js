@@ -1,9 +1,10 @@
 export const userInputs = [
   {
     id: 1,
-    key: "employeeCode",
-    label: "Employee Code",
-    type: "number",
+    key: "dateOfJoining",
+    label: "Date Of Joining",
+    type: "text",
+    placeholder: "ex.DD/MM/YYYY",
   },
   {
     id: 2,
@@ -21,51 +22,60 @@ export const userInputs = [
   },
   {
     id: 4,
-    key: "email",
-    label: "Email",
-    type: "mail",
-    placeholder: "john_doe@gmail.com",
+    key: "permanentAddress",
+    label: "Permanent Address",
+    type: "text",
+    placeholder: "Surat, Gujarat, India",
   },
   {
     id: 5,
-    key: "password",
-    label: "Password",
-    type: "password",
+    key: "contactNo",
+    label: "Contact No",
+    type: "text",
   },
   {
     id: 6,
     key: "gender",
     label: "Gender",
     type: "text",
+    placeholder: "ex.Male ,Female",
+
   },
   {
     id: 7,
     key: "dateOfBirth",
     label: "Date Of Birth",
     type: "text",
+    placeholder: "ex.DD/MM/YYYY",
   },
   {
     id: 8,
-    key: "dateOfJoining",
-    label: "Date Of Joining",
-    type: "text",
-  },
-  {
-    id: 9,
-    key: "status",
-    label: "Status",
-    type: "text",
-  },
-  {
-    id: 10,
     key: "adharNumber",
     label: "Adhar Number",
     type: "text",
   },
   {
+    id: 9,
+    key: "panCardNo",
+    label: "Pan CardNo",
+    type: "text",
+  },
+  {
+    id: 10,
+    key: "bankname",
+    label: "Bank Name",
+    type: "text",
+  },
+  {
+    id: 16,
+    key: "accountno",
+    label: "Account No",
+    type: "text",
+  },
+  {
     id: 11,
-    key: "contactNo",
-    label: "Contact No",
+    key: "ifsc",
+    label: "IFSC Code",
     type: "text",
   },
   {
@@ -74,32 +84,7 @@ export const userInputs = [
     label: "Emergency ContactNo",
     type: "text",
   },
-  {
-    id: 13,
-    key: "bloodGroup",
-    label: "Blood Group",
-    type: "text",
-  },
-  {
-    id: 14,
-    key: "panCardNo",
-    label: "Pan CardNo",
-    type: "text",
-  },
-  // {
-  //   id: 15,
-  //   key: "presentAddress",
-  //   label: "Present Address",
-  //   type: "text",
-  //   placeholder: "Surat, Gujarat, India",
-  // },
-  {
-    id: 15,
-    key: "permanentAddress",
-    label: "Permanent Address",
-    type: "text",
-    placeholder: "Surat, Gujarat, India",
-  }
+  
 ];
 
 export const editUserInputs = [

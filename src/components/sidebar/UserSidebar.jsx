@@ -8,7 +8,7 @@ import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext } from "react";
 import { useAuth } from "../auth/AuthContaxt";
 
-const Sidebar = ({ onLogout }) => {
+const UserSidebar = ({ onLogout }) => {
   const { logout } = useAuth();
   const navigate = useNavigate();
   const { dispatch } = useContext(DarkModeContext);
@@ -16,7 +16,10 @@ const Sidebar = ({ onLogout }) => {
   const handleLogout = async () => {
     try {
       // Perform your logout logic
-      logout(); 
+      logout(); // Call the logout function from the context
+
+      // Redirect to the login page
+      // navigate('/login');
       navigate('/');
     } catch (error) {
       // Handle logout error
@@ -30,7 +33,7 @@ const Sidebar = ({ onLogout }) => {
         <Link to="/" style={{ textDecoration: "none" }}>
           <span className="logo">
             <img
-              src="/logo.png"
+              src="/logo.png" // Update with the correct relative URL to your logo image
               alt="Logo"
               className="logo-image"
             />
@@ -46,12 +49,12 @@ const Sidebar = ({ onLogout }) => {
             <span>Dashboard</span>
           </li>
           <p className="title">LISTS</p>
-          <Link to="/users" style={{ textDecoration: "none" }}>
+          {/* <Link to="/users" style={{ textDecoration: "none" }}>
             <li>
               <PersonOutlineIcon className="icon" />
               <span>Users</span>
             </li>
-          </Link>
+          </Link> */}
           <p className="title">PRESENCE</p>
           <Link to="/users/presence" style={{ textDecoration: "none" }}>
             <li>
@@ -120,4 +123,4 @@ const Sidebar = ({ onLogout }) => {
   );
 };
 
-export default Sidebar;
+export default UserSidebar;

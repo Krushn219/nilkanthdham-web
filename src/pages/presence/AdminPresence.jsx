@@ -1,12 +1,12 @@
 import "./presence.scss"
 import Navbar from "../../components/navbar/Navbar"
 import Presencetable from "../../components/presencetable/Presencetable"
-import UserSidebar from "../../components/sidebar/UserSidebar"
+import Sidebar from "../../components/sidebar/Sidebar"
 
 const List = () => {
   return (
     <div className="list">
-      <UserSidebar/>
+      <Sidebar/>
       <div className="listContainer">
         <Navbar/>
         <Presencetable/>
