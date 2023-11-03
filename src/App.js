@@ -1,4 +1,10 @@
-import { BrowserRouter, Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+  useNavigate,
+} from "react-router-dom";
 import Login from "./pages/login/Login";
 import "./style/dark.scss";
 import { useContext, useEffect, useState } from "react";
@@ -32,6 +38,9 @@ function App() {
 
       // Check if the user is an admin
       setIsAdmin(decoded.isAdmin);
+    } else if (token == "undefined") {
+      // Update the loading state
+      setIsLoading(false);
     }
     // Update the loading state
     setIsLoading(false);
@@ -57,7 +66,7 @@ function App() {
               <Route path="login" element={<Login onLogin={handleLogin} />} />
             )}
             {isAdmin ? (
-              <Route path="/*" element={<AdminRoutes isAdmin={isAdmin}/>} />
+              <Route path="/*" element={<AdminRoutes isAdmin={isAdmin} />} />
             ) : (
               <Route path="/*" element={<UserRoutes />} />
             )}
