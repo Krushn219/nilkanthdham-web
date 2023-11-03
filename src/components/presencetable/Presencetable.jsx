@@ -70,6 +70,25 @@ const Presencetable = () => {
         </div>
       ),
     },
+    {
+      field: "dailyWages",
+      headerName: "Daily Wages",
+      width: 120,
+      renderCell: (params) => (
+        <div className="workHoursCell">
+          <label>
+            <input
+              type="string"
+              value={params.row.dailyWages}
+              onChange={(e) =>
+                handlePresenceChange(params.id, "dailyWages", e.target.value)
+              }
+              disabled={!params.row.present}
+            />
+          </label>
+        </div>
+      ),
+    },
     // Add more fields you want to display here
   ];
 
@@ -118,6 +137,7 @@ const Presencetable = () => {
               employeeCode: employee.employeeCode,
               present: false,
               workHours: "",
+              dailyWages: "",
               date: selectedDateValue.toISOString().split("T")[0],
               image: employee.image,
             }));
@@ -135,6 +155,7 @@ const Presencetable = () => {
             employeeCode: employee.employeeCode,
             present: employee.present,
             workHours: employee.workHours,
+            dailyWages: employee.dailyWages,
             date: selectedDateValue.toISOString().split("T")[0],
             image: employee.image,
           }));
@@ -170,6 +191,7 @@ const Presencetable = () => {
     const resetData = presenceData.map((row) => ({
       ...row,
       workHours: "",
+      dailyWages: "", 
       present: false, // Set it to the default value (e.g., false for "Absent")
     }));
     setPresenceData(resetData);
@@ -211,6 +233,11 @@ const Presencetable = () => {
 
         const responseData = await response.json();
         console.log("Response:", responseData);
+
+        if (response.ok) {
+          // Call the new function to fetch and refresh the data
+          fetchEmployeeData();
+        }
 
         // Reset editable fields after a successful response
         resetEditableFields();

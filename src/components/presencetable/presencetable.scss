@@ -88,6 +88,20 @@
         border-color: #007bff;
       }
     }
+
+    input[type="string"] {
+      width: 60px; /* Adjust the width as needed */
+      padding: 4px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      font-size: 14px;
+      outline: none;
+
+      &:hover,
+      &:focus {
+        border-color: #007bff;
+      }
+    }
   }
 
   .datePickerContainer {
