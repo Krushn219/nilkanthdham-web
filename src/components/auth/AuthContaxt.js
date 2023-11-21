@@ -8,8 +8,6 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // const navigate = useNavigate();
-
   const logout = async () => {
     try {
       const response = await fetch(
@@ -33,7 +31,6 @@ export const AuthProvider = ({ children }) => {
         localStorage.removeItem("authToken");
 
         setIsLoggedIn(false);
-        // navigate("/");
       } else {
         console.log("data===", response);
         // Extract the error message from the response, if available

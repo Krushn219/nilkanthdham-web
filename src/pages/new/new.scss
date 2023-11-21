@@ -38,9 +38,10 @@
           flex-wrap: wrap;
           gap: 30px;
           justify-content: space-around;
+          flex-direction: column;
 
           .formInput {
-            width: 40%;
+            width: 90%;
 
             label {
               display: flex;
@@ -58,6 +59,13 @@
               border: none;
               border-bottom: 1px solid gray;
             }
+
+            select {
+              width: 100%;
+              padding: 5px;
+              border: none;
+              border-bottom: 1px solid gray;
+            }
           }
 
           button {
@@ -69,6 +77,26 @@
             font-weight: bold;
             cursor: pointer;
             margin-top: 10px;
+          }
+          .date-picker-modify{
+            width: 100%;
+          }
+
+          .date-picker-modify fieldset{
+            border: none!important;
+          }
+
+          .date-picker-modify button{
+            width: 0;
+            background: none;
+            position: absolute;
+            right: 10%;
+          }
+          .date-picker-modify svg{
+            color: pink;
+          }
+          .css-1laqsz7-MuiInputAdornment-root{
+            position: relative;
           }
         }
       }

@@ -9,79 +9,45 @@ import { jwtDecode } from "jwt-decode";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
-
-  // Set up a state variable to track authentication status
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
 
-  // Function to handle login
-  const handleLogin = () => {
+  const handleLogin = (isAdmin) => {
     setIsLoggedIn(true);
+    setIsAdmin(isAdmin);
   };
 
   useEffect(() => {
-    try {
-      // Check if there's a token in local storage when the component mounts
-      const token = localStorage.getItem("authToken");
-      if (token) {
-        if (token === "undefined" || token === null) {
-          // Handle the case when there's no token in local storage
-        setIsLoggedIn(false);
-        setIsAdmin(false);
-        }
-        else{
-        // Set the user as logged in if a valid token is found
-        setIsLoggedIn(true);
+    // Check if the user is logged in and determine their role
+    const token = localStorage.getItem("token"); // You may need to adjust this based on your authentication implementation
 
-        // Decode a JWT
-        const decoded = jwtDecode(token);
-
-        // Check if the user is an admin
-        setIsAdmin(decoded.isAdmin);
-        }
-      } else {
-        // Handle the case when there's no token in local storage
-        setIsLoggedIn(false);
-        setIsAdmin(false);
-      }
-
-      // Update the loading state
-      setIsLoading(false);
-    } catch (error) {
-      // Handle any errors that might occur during token decoding or storage access
-      console.error("Error in useEffect:", error);
+    if (token) {
+      const decodedToken = jwtDecode(token);
+      setIsLoggedIn(true);
+      setIsAdmin(decodedToken.isAdmin); // Adjust this based on how you store the admin information in your token
+    } else {
       setIsLoggedIn(false);
       setIsAdmin(false);
-      setIsLoading(false);
     }
-  }, []);
-
-  // While loading, don't render any content
-  if (isLoading) {
-    return null;
-  }
+  }, []); // Run this effect only once when the component mounts
 
   return (
     <div className={darkMode ? "app dark" : "app"}>
       <BrowserRouter>
         <Routes>
-          <Route path="/">
-            <Route
-              path="/"
-              element={<Login onLogin={handleLogin} isLoggedIn={isLoggedIn} isAdmin={isAdmin}/>}
-            />
-            {isLoggedIn ? (
-              <Route path="login" element={<Navigate to="/" />} />
-            ) : (
-              <Route path="login" element={<Login onLogin={handleLogin} isAdmin={isAdmin}/>} />
-            )}
-            {isAdmin ? (
-              <Route path="/*" element={<AdminRoutes isAdmin={isAdmin} />} />
-            ) : (
-              <Route path="/*" element={<UserRoutes />} />
-            )}
-          </Route>
+          <Route
+            path="/"
+            element={
+              isLoggedIn ? (
+                isAdmin ? <Navigate to="/admin" /> : <Navigate to="/user" />
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          />
+          <Route path="/login" element={<Login onLogin={handleLogin} onLoginAdmin={() => setIsAdmin(true)} />} />
+          <Route path="/admin/*" element={<AdminRoutes />} />
+          <Route path="/user/*" element={<UserRoutes />} />
         </Routes>
       </BrowserRouter>
     </div>

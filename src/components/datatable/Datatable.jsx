@@ -117,7 +117,7 @@ const Datatable = () => {
         return (
           <div className="cellAction">
             <Link
-              to={`/users/${params.row.id}`}
+              to={`/admin/${params.row.id}`}
               style={{ textDecoration: "none" }}
             >
               <div className="viewButton">View</div>
@@ -169,7 +169,7 @@ const Datatable = () => {
       </div>
       <div className="datatableTitle">
         Add New User
-        <Link to="/users/new" className="link">
+        <Link to="/admin/new" className="link">
           Add New
         </Link>
       </div>

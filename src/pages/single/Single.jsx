@@ -31,7 +31,7 @@ const Single = () => {
           <div className="left">
             <div className="editButton">
               <Link
-                to={`/users/edit/${userId}`}
+                to={`/admin/edit/${userId}`}
                 style={{ textDecoration: "none" }}
               >
                 Edit

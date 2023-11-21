@@ -9,7 +9,7 @@ const UserRoutes = () => {
       <Route
         path="/"
         element={<Outlet />}>
-        <Route path="users/presence" element={<EmployeePresence />} />
+        <Route path="presence" element={<EmployeePresence />} />
       </Route>
     </Routes>
   );

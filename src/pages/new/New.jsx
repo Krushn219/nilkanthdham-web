@@ -4,26 +4,36 @@ import Navbar from "../../components/navbar/Navbar";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { userInputs } from "../../formSource"; // Import your inputs data
+import { userInputs } from "../../formSource"; // Import inputs data
 import Swal from "sweetalert2";
+import {
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  TextField,
+} from "@mui/material";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 const New = ({ title }) => {
   const navigate = useNavigate();
   const [file, setFile] = useState("");
   const [formData, setFormData] = useState({
     image: "",
-    dateOfJoining:"",
+    dateOfJoining: "",
     userName: "",
     lastName: "",
-    permanentAddress:"",
-    contactNo:"",
+    permanentAddress: "",
+    contactNo: "",
     gender: "",
     dateOfBirth: "",
     adharNumber: "",
-    panCardNo:"",
-    bankname:"",
-    accountno:"",
-    ifsc:"",
+    panCardNo: "",
+    bankname: "",
+    accountno: "",
+    ifsc: "",
     emergencyContactNo: "",
   });
 
@@ -51,17 +61,32 @@ const New = ({ title }) => {
     }
 
     try {
-      await fetch(process.env.REACT_APP_API_URL + `/api/employee/create`, {
+      const response = await fetch(process.env.REACT_APP_API_URL + `/api/employee/create`, {
         method: "POST",
         body: formDataToSend,
       });
 
-      // Show a success message using SweetAlert
+      // console.log("response++++",response)
+
+      if(response.ok){
+        // Show a success message using SweetAlert
       Swal.fire({
         icon: "success",
         title: "Success",
         text: "User has been created successfully!",
       });
+      }
+      else{
+        // Show a success message using SweetAlert
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: response.error,
+      });
+      }
+      
+
+      
 
       // Reset form fields or perform other actions after successful submission
       setFile("");
@@ -69,7 +94,7 @@ const New = ({ title }) => {
         ...formData,
         image: "",
       });
-      navigate("/users");
+      navigate("/admin");
     } catch (error) {
       console.error("Error creating user:", error);
 
@@ -118,14 +143,42 @@ const New = ({ title }) => {
               {userInputs.map((input) => (
                 <div className="formInput" key={input.id}>
                   <label>{input.label}</label>
-                  <input
-                    type={input.type}
-                    placeholder={input.placeholder}
-                    value={formData[input.key]}
-                    onChange={(e) =>
-                      handleInputChange(input.key, e.target.value)
-                    }
-                  />
+                  {input.key === "gender" ? ( // Check if it's the "gender" field
+                    <FormControl>
+                      {/* <InputLabel>Gender</InputLabel> */}
+                      <Select
+                        defaultChecked="Male"
+                        defaultValue="Male"
+                        value={formData.gender}
+                        onChange={(e) =>
+                          handleInputChange("gender", e.target.value)
+                        }
+                      >
+                        <MenuItem value="Male">Male</MenuItem>
+                        <MenuItem value="Female">Female</MenuItem>
+                      </Select>
+                    </FormControl>
+                  ) : input.key === "dateOfJoining" ||
+                    input.key === "dateOfBirth" ? (
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <DatePicker
+                        value={formData[input.key]}
+                        onChange={(date) => handleInputChange(input.key, date)}
+                        renderInput={(params) => <TextField {...params} />}
+                        // label={input.label}
+                        className="date-picker-modify"
+                      />
+                    </LocalizationProvider>
+                  ) : (
+                    <input
+                      type={input.type}
+                      placeholder={input.placeholder}
+                      value={formData[input.key]}
+                      onChange={(e) =>
+                        handleInputChange(input.key, e.target.value)
+                      }
+                    />
+                  )}
                 </div>
               ))}
               <button type="submit">Send</button>

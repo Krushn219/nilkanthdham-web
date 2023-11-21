@@ -15,12 +15,11 @@ const UserSidebar = ({ onLogout }) => {
   
   const handleLogout = async () => {
     try {
-      // Perform your logout logic
-      logout(); // Call the logout function from the context
+      // logout logic
+      await logout(); 
 
       // Redirect to the login page
-      // navigate('/login');
-      navigate('/');
+      navigate('/login');
     } catch (error) {
       // Handle logout error
       console.error('Logout error:', error);

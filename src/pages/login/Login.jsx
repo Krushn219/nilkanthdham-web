@@ -1,32 +1,26 @@
 import React, { useEffect, useState } from "react";
 import "./login.scss";
 import loginImage from "../../assets/logo.png";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { jwtDecode } from "jwt-decode";
 
-const Login = ({ onLogin, isAdmin }) => {
-  console.log("in login page")
-  const navigate = useNavigate();
 
-  // Create state variables for the username and password
+const Login = ({ onLogin, onLoginAdmin }) => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
 
-
-  // Function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Create a data object to send in the request body
     const data = {
       email,
       password,
     };
 
     try {
-      // Send a POST request to your backend login endpoint
       const response = await fetch(
         process.env.REACT_APP_API_URL + `/api/login`,
         {
@@ -38,28 +32,27 @@ const Login = ({ onLogin, isAdmin }) => {
         }
       );
       const resData = await response.json();
-      // console.log("responseresponse", resData);
+
       if (response.ok) {
-        // Login was successful
-        onLogin();
-
-        // Set the JWT token in localStorage
         localStorage.setItem("authToken", resData.token);
+        const decoded = jwtDecode(resData.token);
 
-        if (isAdmin) {
-          navigate("/admin");
+        // Call the onLogin function passed as a prop to update the login state in the parent component
+        onLogin(decoded.isAdmin);
+
+        if (decoded.isAdmin) {
+          onLoginAdmin();
+          navigate("/admin"); // Redirect to the admin dashboard
         } else {
-
-          navigate("/users/presence");
+          navigate("/user/presence");
         }
       } else {
-        // Login failed, handle the error
-        setError("Invalid credentials. Please try again.");
+        setError(response.statusText);
 
         Swal.fire({
           icon: "error",
           title: "Login Failed",
-          text: "Invalid credentials. Please try again.",
+          text: response.statusText,
         });
       }
     } catch (error) {
@@ -67,10 +60,6 @@ const Login = ({ onLogin, isAdmin }) => {
       setError("An error occurred during login. Please try again later.");
     }
   };
-
-  // if (isAuthenticated) {
-  //   return <Navigate to="/" />;
-  // }
 
   return (
     <div className="login-container">
@@ -106,3 +95,4 @@ const Login = ({ onLogin, isAdmin }) => {
 };
 
 export default Login;
+

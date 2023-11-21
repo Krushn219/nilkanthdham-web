@@ -87,7 +87,7 @@ const EditUserForm = ({ title }) => {
 
       // Reset form fields or perform other actions after successful submission
       setFile("");
-      navigate(`/users/${userId}`);
+      navigate(`/admin/${userId}`);
     } catch (error) {
       console.error("Error updating user:", error);
 
@@ -106,7 +106,8 @@ const EditUserForm = ({ title }) => {
       <div className="newContainer">
         <Navbar />
         <div className="top">
-          <h1>{title}</h1>
+          {/* <h1>{title}</h1> */}
+          <h1>Edit Information</h1>
         </div>
         <div className="bottom">
           <div className="left">

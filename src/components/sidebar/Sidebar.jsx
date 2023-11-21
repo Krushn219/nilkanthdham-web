@@ -7,20 +7,36 @@ import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined
 import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext } from "react";
 import { useAuth } from "../auth/AuthContaxt";
+import Swal from "sweetalert2";
 
 const Sidebar = ({ onLogout }) => {
   const { logout } = useAuth();
   const navigate = useNavigate();
   const { dispatch } = useContext(DarkModeContext);
-  
+
   const handleLogout = async () => {
-    try {
-      // Perform your logout logic
-      logout(); 
-      navigate('/');
-    } catch (error) {
-      // Handle logout error
-      console.error('Logout error:', error);
+    // Display a confirmation dialog
+    const result = await Swal.fire({
+      title: "Logout",
+      text: "Are you sure you want to logout?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Logout",
+      cancelButtonText: "Cancel",
+    });
+
+    // If the user confirms the logout, proceed with the logout logic
+    if (result.isConfirmed) {
+      try {
+        // Perform your logout logic
+        await logout(); // Assuming the logout function returns a promise
+
+        // Redirect to the login page
+        navigate("/login");
+      } catch (error) {
+        // Handle logout error
+        console.error("Logout error:", error);
+      }
     }
   };
 
@@ -28,13 +44,13 @@ const Sidebar = ({ onLogout }) => {
     <div className="sidebar">
       <div className="top">
         <Link to="/" style={{ textDecoration: "none" }}>
-          <span className="logo">
+          {/* <span className="logo">
             <img
               src="/logo.png"
               alt="Logo"
               className="logo-image"
             />
-          </span>
+          </span> */}
         </Link>
       </div>
       <hr />
@@ -46,14 +62,14 @@ const Sidebar = ({ onLogout }) => {
             <span>Dashboard</span>
           </li>
           <p className="title">LISTS</p>
-          <Link to="/users" style={{ textDecoration: "none" }}>
+          <Link to="/admin" style={{ textDecoration: "none" }}>
             <li>
               <PersonOutlineIcon className="icon" />
               <span>Users</span>
             </li>
           </Link>
           <p className="title">PRESENCE</p>
-          <Link to="/users/presence" style={{ textDecoration: "none" }}>
+          <Link to="/admin/presence" style={{ textDecoration: "none" }}>
             <li>
               <PersonOutlineIcon className="icon" />
               <span>Users Presence</span>
