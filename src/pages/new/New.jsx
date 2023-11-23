@@ -4,11 +4,10 @@ import Navbar from "../../components/navbar/Navbar";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { userInputs } from "../../formSource"; // Import inputs data
+import { userInputs } from "../../formSource"; 
 import Swal from "sweetalert2";
 import {
   FormControl,
-  InputLabel,
   Select,
   MenuItem,
   TextField,
@@ -27,7 +26,7 @@ const New = ({ title }) => {
     lastName: "",
     permanentAddress: "",
     contactNo: "",
-    gender: "",
+    gender: "Male",
     dateOfBirth: "",
     adharNumber: "",
     panCardNo: "",
@@ -66,8 +65,6 @@ const New = ({ title }) => {
         body: formDataToSend,
       });
 
-      // console.log("response++++",response)
-
       if(response.ok){
         // Show a success message using SweetAlert
       Swal.fire({
@@ -77,24 +74,21 @@ const New = ({ title }) => {
       });
       }
       else{
-        // Show a success message using SweetAlert
+        // Show a error message using SweetAlert
       Swal.fire({
         icon: "error",
         title: "Error",
         text: response.error,
       });
       }
-      
-
-      
-
-      // Reset form fields or perform other actions after successful submission
+    
+      // Reset form fields 
       setFile("");
       setFormData({
         ...formData,
         image: "",
       });
-      navigate("/admin");
+      navigate("/admin/list");
     } catch (error) {
       console.error("Error creating user:", error);
 
@@ -143,11 +137,9 @@ const New = ({ title }) => {
               {userInputs.map((input) => (
                 <div className="formInput" key={input.id}>
                   <label>{input.label}</label>
-                  {input.key === "gender" ? ( // Check if it's the "gender" field
+                  {input.key === "gender" ? ( 
                     <FormControl>
-                      {/* <InputLabel>Gender</InputLabel> */}
                       <Select
-                        defaultChecked="Male"
                         defaultValue="Male"
                         value={formData.gender}
                         onChange={(e) =>
@@ -181,7 +173,7 @@ const New = ({ title }) => {
                   )}
                 </div>
               ))}
-              <button type="submit">Send</button>
+              <button type="submit">Save</button>
             </form>
           </div>
         </div>

@@ -41,29 +41,33 @@ const Datatable = () => {
   ];
 
   useEffect(async () => {
-    await fetch(process.env.REACT_APP_API_URL + `/api/employee/all`)
-      .then((response) => response.json())
-      .then((data) => {
-        data = data.employee;
+    try {
+      const response = await fetch(process.env.REACT_APP_API_URL + `/api/employee/all`);
+      const data = await response.json();
 
-        const rows = data.map((user) => ({
+      if (response.ok) {
+        const rows = data.employee.map((user) => ({
           id: user._id,
           employeeCode: user.employeeCode,
           firstName: user.userName,
           lastName: user.lastName,
           status: user.status,
           image: user.image,
-          // Map more fields you want to display here
         }));
+
         // Filter rows based on search query
         const filteredRows = rows.filter((user) =>
-          user.firstName.toLowerCase().includes(searchQuery.toLowerCase())
+          user.firstName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          user.lastName.toLowerCase().includes(searchQuery.toLowerCase()) 
         );
 
         setUserRows(filteredRows);
-        // setUserRows(rows);
-      })
-      .catch((error) => console.error("Error fetching data:", error));
+      } else {
+        console.error("Error fetching data:", data.error);
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
   }, [searchQuery]);
 
   // Filter user rows based on the selected filter

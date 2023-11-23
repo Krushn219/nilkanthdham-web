@@ -19,17 +19,17 @@ function App() {
 
   useEffect(() => {
     // Check if the user is logged in and determine their role
-    const token = localStorage.getItem("token"); // You may need to adjust this based on your authentication implementation
+    const token = localStorage.getItem("token"); 
 
     if (token) {
       const decodedToken = jwtDecode(token);
       setIsLoggedIn(true);
-      setIsAdmin(decodedToken.isAdmin); // Adjust this based on how you store the admin information in your token
+      setIsAdmin(decodedToken.isAdmin); 
     } else {
       setIsLoggedIn(false);
       setIsAdmin(false);
     }
-  }, []); // Run this effect only once when the component mounts
+  }, []); 
 
   return (
     <div className={darkMode ? "app dark" : "app"}>

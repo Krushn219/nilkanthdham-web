@@ -30,14 +30,14 @@ const AdminRoutes = ({isAdmin}) => {
     
       <Routes path='/' element={<Outlet/>}>
         <Route index element={isAdmin ? <Home /> : <EmployeePresence />} />
-        <Route path="admin" element={isAdmin ? <List /> : <EmployeePresence />} />
-        <Route path="admin/:userId" element={isAdmin ? <Single /> : <EmployeePresence />} />
-        <Route path="admin/edit/:userId" element={isAdmin ? <EditUserForm /> : <EmployeePresence />} />
+        <Route path="list" element={<List /> } />
+        <Route path=":userId" element={ <Single /> } />
+        <Route path="edit/:userId" element={isAdmin ? <EditUserForm /> : <EmployeePresence />} />
         <Route
-          path="admin/new"
-          element={isAdmin ? <New inputs={userInputs} title="Add New User" />: <EmployeePresence />}
+          path="/new"
+          element={<New inputs={userInputs} title="Add New User" />}
         />
-        <Route path="admin/presence" element={isAdmin ? <AdminEmployeePresence /> : <EmployeePresence />} />
+        <Route path="presence" element={<AdminEmployeePresence />} />
         {/* <Route path="users/presence" element={<EmployeePresence />} /> */}
         <Route path="sidebar" element={isAdmin ? <Sidebar onLogout={handleLogout} /> : <EmployeePresence />} />
         

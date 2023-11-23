@@ -88,12 +88,12 @@ export const userInputs = [
 ];
 
 export const editUserInputs = [
-  {
-    id: 1,
-    key: "employeeCode",
-    label: "Employee Code",
-    type: "number",
-  },
+  // {
+  //   id: 1,
+  //   key: "employeeCode",
+  //   label: "Employee Code",
+  //   type: "number",
+  // },
   {
     id: 2,
     key: "userName",
@@ -108,74 +108,99 @@ export const editUserInputs = [
     type: "text",
     placeholder: "John Doe",
   },
+  // {
+  //   id: 4,
+  //   key: "email",
+  //   label: "Email",
+  //   type: "mail",
+  //   placeholder: "john_doe@gmail.com",
+  // },
   {
     id: 4,
-    key: "email",
-    label: "Email",
-    type: "mail",
-    placeholder: "john_doe@gmail.com",
-  },
-  {
-    id: 5,
     key: "gender",
     label: "Gender",
     type: "text",
   },
   {
-    id: 6,
+    id: 5,
     key: "dateOfBirth",
     label: "Date Of Birth",
     type: "text",
   },
   {
-    id: 7,
+    id: 6,
     key: "dateOfJoining",
     label: "Date Of Joining",
     type: "text",
   },
   {
-    id: 8,
+    id: 7,
     key: "status",
     label: "Status",
     type: "text",
   },
   {
-    id: 9,
+    id: 8,
     key: "adharNumber",
     label: "Adhar Number",
     type: "text",
   },
   {
-    id: 10,
+    id: 9,
     key: "contactNo",
     label: "Contact No",
     type: "text",
   },
   {
-    id: 11,
-    key: "emergencyContactNo",
-    label: "Emergency ContactNo",
-    type: "text",
-  },
-  {
-    id: 12,
-    key: "bloodGroup",
-    label: "Blood Group",
-    type: "text",
-  },
-  {
-    id: 13,
+    id: 10,
     key: "panCardNo",
     label: "Pan CardNo",
     type: "text",
   },
   {
+    id: 11,
+    key: "bankname",
+    label: "Bank Name",
+    type: "text",
+  },
+  {
+    id: 12,
+    key: "accountno",
+    label: "Account No",
+    type: "text",
+  },
+  {
+    id: 13,
+    key: "ifsc",
+    label: "IFSC Code",
+    type: "text",
+  },
+  {
+    id: 14,
+    key: "emergencyContactNo",
+    label: "Emergency ContactNo",
+    type: "text",
+  },
+  // {
+  //   id: 12,
+  //   key: "bloodGroup",
+  //   label: "Blood Group",
+  //   type: "text",
+  // },
+  {
     id: 15,
+    key: "panCardNo",
+    label: "Pan CardNo",
+    type: "text",
+  },
+  {
+    id: 16,
     key: "permanentAddress",
     label: "Permanent Address",
     type: "text",
     placeholder: "Surat, Gujarat, India",
   }
+  
 ];
 
 export const presenceInputs = [

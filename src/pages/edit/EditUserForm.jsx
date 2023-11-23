@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { editUserInputs } from "../../formSource"; // Import your inputs data
 import Swal from "sweetalert2";
+import { FormControl, MenuItem, Select } from "@mui/material";
 
 const EditUserForm = ({ title }) => {
   const navigate = useNavigate();
@@ -13,19 +14,20 @@ const EditUserForm = ({ title }) => {
   const [file, setFile] = useState("");
   const [formData, setFormData] = useState({
     image: "",
-    employeeCode: "",
-    username: "",
-    lastname: "",
-    email: "",
-    gender: "",
-    dateOfBirth: "",
     dateOfJoining: "",
-    status: "",
-    adharNumber: "",
-    contactNo: "",
-    emergencyContactNo: "",
-    bloodGroup: "",
+    userName: "",
+    lastName: "",
     permanentAddress: "",
+    contactNo: "",
+    gender: "Male",
+    dateOfBirth: "",
+    adharNumber: "",
+    panCardNo: "",
+    bankname: "",
+    accountno: "",
+    ifsc: "",
+    emergencyContactNo: "",
+    status:""
   });
 
   useEffect(async () => {
@@ -42,6 +44,8 @@ const EditUserForm = ({ title }) => {
       })
       .catch((error) => console.error("Error fetching user details:", error));
   }, [userId]);
+
+  
 
   const handleInputChange = (key, value) => {
     setFormData((prevFormData) => ({
@@ -100,14 +104,20 @@ const EditUserForm = ({ title }) => {
     }
   };
 
+   // Function to handle the back button click
+   const handleBackButtonClick = () => {
+    navigate(`/admin/${userId}`);
+  };
+
   return (
     <div className="new">
       <Sidebar />
       <div className="newContainer">
         <Navbar />
-        <div className="top">
+        <div className="top" style={{"justify-content":"space-between", alignItems:"center"}}>
           {/* <h1>{title}</h1> */}
           <h1>Edit Information</h1>
+          <button onClick={handleBackButtonClick}>Back</button>
         </div>
         <div className="bottom">
           <div className="left">
@@ -138,7 +148,33 @@ const EditUserForm = ({ title }) => {
 
               {editUserInputs.map((input) => (
                 <div className="formInput" key={input.id}>
-                  <label>{input.label}</label>
+                <label>{input.label}</label>
+                {input.key === "gender" ? ( 
+                  <FormControl>
+                    <Select
+                      defaultValue="Male"
+                      value={formData.gender}
+                      onChange={(e) =>
+                        handleInputChange("gender", e.target.value)
+                      }
+                    >
+                      <MenuItem value="Male">Male</MenuItem>
+                      <MenuItem value="Female">Female</MenuItem>
+                    </Select>
+                  </FormControl>
+                ): input.key === "status" ? (
+                  <FormControl>
+                  <Select
+                    value={formData.status}
+                    onChange={(e) =>
+                      handleInputChange("status", e.target.value)
+                    }
+                  >
+                    <MenuItem value="active">active</MenuItem>
+                    <MenuItem value="inActive">inActive</MenuItem>
+                  </Select>
+                </FormControl>
+                ):(
                   <input
                     type={input.type}
                     placeholder={input.placeholder}
@@ -147,7 +183,8 @@ const EditUserForm = ({ title }) => {
                       handleInputChange(input.key, e.target.value)
                     }
                   />
-                </div>
+                )}
+              </div>
               ))}
               <button type="submit">Update</button>
             </form>

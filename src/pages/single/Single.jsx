@@ -3,15 +3,21 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import Chart from "../../components/chart/Chart";
 import List from "../../components/table/Table";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 const Single = () => {
+  const navigate = useNavigate();
   const { userId } = useParams();
   const [user, setUser] = useState(null); // State to store the user details
 
+  // Function to handle the back button click
+  const handleBackButtonClick = () => {
+    navigate(`/admin/list`);
+  };
+
   // User Details
-  useEffect(async() => {
+  useEffect(async () => {
     // await fetch(process.env.REACT_APP_API_URL_LOCAL + `api/employee/${userId}`)
     await fetch(process.env.REACT_APP_API_URL + `/api/employee/${userId}`)
       .then((response) => response.json())
@@ -29,15 +35,22 @@ const Single = () => {
         <Navbar />
         <div className="top">
           <div className="left">
-            <div className="editButton">
-              <Link
-                to={`/admin/edit/${userId}`}
-                style={{ textDecoration: "none" }}
-              >
-                Edit
-              </Link>
+            <div className="editHeader">
+              <h1 className="title">Information</h1>
+
+              <div className="">
+                <Link
+                  to={`/admin/edit/${userId}`}
+                  style={{ textDecoration: "none" }}
+                >
+                  Edit
+                </Link>
+                <button onClick={handleBackButtonClick} className="backButton">
+                  Back
+                </button>
+              </div>
             </div>
-            <h1 className="title">Information</h1>
+
             {/* Render user details */}
             {user && (
               <div className="item">
@@ -48,10 +61,10 @@ const Single = () => {
                     <span className="itemKey">Employee Code:</span>
                     <span className="itemValue">{user.employeeCode}</span>
                   </div>
-                  <div className="detailItem">
+                  {/* <div className="detailItem">
                     <span className="itemKey">Email:</span>
                     <span className="itemValue">{user.email}</span>
-                  </div>
+                  </div> */}
                   <div className="detailItem">
                     <span className="itemKey">Phone:</span>
                     <span className="itemValue">{user.contactNo}</span>
@@ -62,16 +75,16 @@ const Single = () => {
                   </div>
                   <div className="detailItem">
                     <span className="itemKey">Address:</span>
-                    <span className="itemValue">{user.presentAddress}</span>
+                    <span className="itemValue">{user.permanentAddress}</span>
                   </div>
                   <div className="detailItem">
                     <span className="itemKey">Gender:</span>
                     <span className="itemValue">{user.gender}</span>
                   </div>
-                  <div className="detailItem">
+                  {/* <div className="detailItem">
                     <span className="itemKey">Blood Group:</span>
                     <span className="itemValue">{user.bloodGroup}</span>
-                  </div>
+                  </div> */}
                   <div className="detailItem">
                     <span className="itemKey">Birth Date:</span>
                     <span className="itemValue">{user.dateOfBirth}</span>
@@ -83,6 +96,22 @@ const Single = () => {
                   <div className="detailItem">
                     <span className="itemKey">Status:</span>
                     <span className="itemValue">{user.status}</span>
+                  </div>
+                  <div className="detailItem">
+                    <span className="itemKey">Adhar Card:</span>
+                    <span className="itemValue">{user.adharNumber}</span>
+                  </div>
+                  <div className="detailItem">
+                    <span className="itemKey">Pan Card:</span>
+                    <span className="itemValue">{user.panCardNo}</span>
+                  </div>
+                  <div className="detailItem">
+                    <span className="itemKey">Bank Name:</span>
+                    <span className="itemValue">{user.bankname}</span>
+                  </div>
+                  <div className="detailItem">
+                    <span className="itemKey">IFSC Code:</span>
+                    <span className="itemValue">{user.ifsc}</span>
                   </div>
                 </div>
               </div>
