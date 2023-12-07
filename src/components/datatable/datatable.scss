@@ -21,6 +21,23 @@
       border-radius: 5px;
       cursor: pointer;
     }
+
+    .download{
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+
+      .downloadOptions{
+        padding: 0 0px;
+
+        label{
+          margin: 0px 5px;
+          input{
+            margin-right: 5px;
+          }
+        }
+      }
+    }
   }
 
   .cellWithImg {
